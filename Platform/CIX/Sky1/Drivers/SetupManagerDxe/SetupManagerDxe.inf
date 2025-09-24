@@ -66,6 +66,7 @@
   gEfiIfrFrontPageGuid                          ## CONSUMES ## GUID (Indicate the formset in this library need to dispaly in which page)
   gEfiEndOfDxeEventGroupGuid
   gCixPrivateSetupFormsetGuid
+  gPlatformSetupVariableGuid
 
 [Protocols]
   gEfiHiiConfigAccessProtocolGuid               ## CONSUMES
@@ -239,6 +240,7 @@
   gCixPlatformTokenSpaceGuid.PcdAcpiSpcrEnable
   gCixPlatformTokenSpaceGuid.PcdEcDefaultFanMode
   gCixTokenSpaceGuid.PcdAcpiCppcType
+  gCixTokenSpaceGuid.PcdOneKeyEcc
 
 [Depex]
   TRUE

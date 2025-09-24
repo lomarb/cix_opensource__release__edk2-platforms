@@ -134,7 +134,11 @@
   OpteeLib|Platform/CIX/Sky1/Library/OpteeLib/OpteeLib.inf
   EfusePublicKeyLib|Platform/CIX/Sky1/Library/EfusePublicKeyLib/EfusePublicKeyLib.inf
   FctMiscLib|Platform/CIX/Sky1/Library/FctMiscLib/FctMiscLib.inf
+!if $(STMM_SUPPORT) == TRUE
   StmmInfoLib|Platform/CIX/Sky1/Library/StmmInfoLib/StmmInfoLib.inf
+!else
+  StmmInfoLib|Platform/CIX/Sky1/Library/StmmInfoNullLib/StmmInfoNullLib.inf
+!endif
 
   #
   # Secure Boot dependencies
@@ -198,6 +202,7 @@
   NorFlashBasicLib|Silicon/CIX/Sky1/Library/NorFlashBasicLib/NorFlashBasicStmmLib.inf
 !else
   NorFlashLib|Silicon/CIX/Sky1/Library/NorFlashLib/NorFlashLib.inf
+  NorFlashBasicLib|Silicon/CIX/Sky1/Library/NorFlashBasicLib/NorFlashBasicLib.inf
 !endif
   PciHostBridgeLib|Silicon/CIX/Sky1/Library/PciHostBridgeLib/PciHostBridgeLib.inf
   PciSegmentLib|Silicon/CIX/Sky1/Library/PciSegmentLib/PciSegmentLib.inf
@@ -730,7 +735,9 @@
   MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe.inf
   MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf
   MdeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf
+!if $(SERIAL_SETUP_SUPPORT) == TRUE
   MdeModulePkg/Universal/Console/TerminalDxe/TerminalDxe.inf
+!endif
   MdeModulePkg/Universal/SerialDxe/SerialDxe.inf
 !if $(TOKEN_CONSOLE_PREF_SUPPORT) == TRUE
   EmbeddedPkg/Drivers/ConsolePrefDxe/ConsolePrefDxe.inf

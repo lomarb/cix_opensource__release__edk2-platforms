@@ -29,8 +29,8 @@ STATIC CIX_TYPE19  mCixDefaultType19 = {
     0xFFFFFFFF,
     SMBIOS_HANDLE_MEMORY,     // handle
     1,
-    0x080000000,     // starting addr of first 2GB
-    0x100000000,     // ending addr of first 2GB
+    0,     // starting addr of first 2GB
+    0,     // ending addr of first 2GB
   },
   TYPE19_STRINGS
 };
@@ -45,12 +45,18 @@ AddSmbiosType19 (
   EFI_SMBIOS_HANDLE  SmbiosHandle;
   UINT64             StartingAddress;
   UINT64             RegionLength;
+  INT64              SecondRegionLenth;
 
-  StartingAddress = PcdGet64 (PcdSystemMemoryBase);
-  RegionLength    = ((UINT64)(MemoryInfo->TotalSize))<<20;
+  StartingAddress = DRAM_LOW_BASE;
+  RegionLength    = ((UINT64)(MemoryInfo->TotalSize)) << 10;
 
-  mCixDefaultType19.Base.ExtendedStartingAddress = StartingAddress;
-  mCixDefaultType19.Base.ExtendedEndingAddress   = StartingAddress + RegionLength - 1;
+  SecondRegionLenth = StartingAddress + RegionLength - DRAM_LOW_TOP;
+  if (SecondRegionLenth > 0) {
+    RegionLength = DRAM_LOW_TOP - StartingAddress;
+  }
+
+  mCixDefaultType19.Base.StartingAddress = StartingAddress;
+  mCixDefaultType19.Base.EndingAddress   = StartingAddress + RegionLength - 1;
 
   SmbiosHandle = SMBIOS_HANDLE_PI_RESERVED;
   Status       = Smbios->Add (
@@ -70,6 +76,30 @@ AddSmbiosType19 (
        Status
       )
       );
+  }
+
+  if (SecondRegionLenth > 0) {
+    SmbiosHandle                           = SMBIOS_HANDLE_PI_RESERVED;
+    mCixDefaultType19.Base.StartingAddress = DRAM_HIGH_BASE;
+    mCixDefaultType19.Base.EndingAddress   = DRAM_HIGH_BASE + SecondRegionLenth - 1;
+    Status                                 = Smbios->Add (
+                                                       Smbios,
+                                                       NULL,
+                                                       &SmbiosHandle,
+                                                       (EFI_SMBIOS_TABLE_HEADER *)&mCixDefaultType19
+                                                       );
+
+    if (EFI_ERROR (Status)) {
+      DEBUG (
+        (
+         DEBUG_ERROR,
+         "[%a]:[%dL] Smbios Type19 Table Log Failed! %r \n",
+         __FUNCTION__,
+         DEBUG_LINE_NUMBER,
+         Status
+        )
+        );
+    }
   }
 
   return EFI_SUCCESS;

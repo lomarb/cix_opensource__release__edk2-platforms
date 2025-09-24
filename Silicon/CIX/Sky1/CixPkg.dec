@@ -425,6 +425,7 @@
   gCixTokenSpaceGuid.PcdMemMbistEn|0xFF|UINT8|0x00005D5
   gCixTokenSpaceGuid.PcdMemMbistMode|0xFF|UINT8|0x00005D6
   gCixTokenSpaceGuid.PcdMemIEcc|0xFF|UINT8|0x00005D7
+  gCixTokenSpaceGuid.PcdOneKeyEcc|0xFF|UINT8|0x00005D8
 
   gCixTokenSpaceGuid.PcdAcpiCpuLpiState|0x01|UINT8|0x0000A001             # ACPI CPU LPI State, 0-disable, 1-LPI0, 2-LPI1, 3-LPI2
   gCixTokenSpaceGuid.PcdAcpiCppcType|0x01|UINT8|0x0000A002                # CPPC Interface Type, 0-disable, 1-fastchannel, 2-pcc

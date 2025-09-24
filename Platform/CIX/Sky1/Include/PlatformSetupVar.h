@@ -16,6 +16,10 @@
 #define MAX_USB_PORT_NUM    10
 #define MAX_GMAC_PORT_NUM   2
 #define MAX_DPU_PORT_NUM    5
+
+#define ONE_KEY_ECC        0x1001
+
+
 #pragma pack(1)
 typedef struct {
   UINT8     PcieRpEnable[MAX_PCIE_PORT_NUM];
@@ -123,6 +127,7 @@ typedef struct {
   UINT8     CpuFMax;
   UINT8     EcFanMode;
   UINT8     CpuCppcType;
+  UINT8     OneKeyEcc;
 } PLATFORM_SETUP_DATA;
 
 typedef struct {

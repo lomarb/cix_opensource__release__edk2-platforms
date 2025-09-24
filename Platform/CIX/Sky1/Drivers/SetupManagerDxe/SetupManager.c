@@ -161,7 +161,8 @@ SetupManagerCallback (
   )
 {
   // UINTN  CurIndex;
-
+  EFI_STATUS  Status;
+  PLATFORM_SETUP_DATA  *IfrFormNvData;
   if ((Action != EFI_BROWSER_ACTION_CHANGING) && (Action != EFI_BROWSER_ACTION_SUBMITTED)) {
     //
     // Do nothing for other UEFI Action. Only do call back when data is changed.
@@ -172,6 +173,64 @@ SetupManagerCallback (
   if ((Value == NULL) || (ActionRequest == NULL)) {
     return EFI_INVALID_PARAMETER;
   }
+
+  if (Action == EFI_BROWSER_ACTION_CHANGING) {
+    if(QuestionId != ONE_KEY_ECC) {
+      goto Exit;
+    }
+
+    IfrFormNvData = AllocateZeroPool (sizeof (PLATFORM_SETUP_DATA));
+    if (IfrFormNvData == NULL) {
+      return EFI_OUT_OF_RESOURCES;
+    }
+
+    //
+    // Retrieve uncommitted data from Browser
+    //
+    if (!HiiGetBrowserData (&gPlatformSetupVariableGuid, L"PlatformSetupVar", sizeof (PLATFORM_SETUP_DATA), (UINT8 *)IfrFormNvData)) {
+      FreePool (IfrFormNvData);
+      return EFI_NOT_FOUND;
+    }
+
+    Status = EFI_SUCCESS;
+
+    switch (QuestionId) {
+      case ONE_KEY_ECC:
+        if(Value->u8 == 0){
+          IfrFormNvData->MemRdLEcc = 0;
+          IfrFormNvData->MemWrLEcc = 0;
+          IfrFormNvData->MemIEcc = 0;
+
+        }else if(Value->u8 == 1){
+          IfrFormNvData->MemRdLEcc = 1;
+          IfrFormNvData->MemWrLEcc = 1;
+          IfrFormNvData->MemIEcc = 0;
+
+        }else if(Value->u8 == 2){
+          IfrFormNvData->MemRdLEcc = 0;
+          IfrFormNvData->MemWrLEcc = 0;
+          IfrFormNvData->MemIEcc = 1;
+
+        }else if(Value->u8 == 0xff){
+          IfrFormNvData->MemRdLEcc = 0xff;
+          IfrFormNvData->MemWrLEcc = 0xff;
+          IfrFormNvData->MemIEcc = 0xff;
+
+        }
+
+        *ActionRequest = EFI_BROWSER_ACTION_REQUEST_SUBMIT;
+
+        break;
+
+      default:
+        break;
+    }
+    HiiSetBrowserData (&gPlatformSetupVariableGuid, L"PlatformSetupVar", sizeof (PLATFORM_SETUP_DATA), (UINT8 *)IfrFormNvData, NULL);
+    FreePool (IfrFormNvData);
+Exit:
+    return Status;
+  }
+
 
   return EFI_SUCCESS;
 }

@@ -40,6 +40,11 @@ AddSmbiosType19 (
   IN const MEM_INIT_OUTPUT_BUFFER  *MemoryInfo
   );
 
+// Memory unit in KB
+#define DRAM_LOW_BASE   0x200000
+#define DRAM_LOW_TOP    0x2000000
+#define DRAM_HIGH_BASE  0x20000000
+
 #define COUNT_MEMORY_DEVICE_NUMBER(n) \
     (((n) & 0x8) >> 3) + (((n) & 0x4) >> 2) + (((n) & 0x2) >> 1) + ((n) & 0x1)
 

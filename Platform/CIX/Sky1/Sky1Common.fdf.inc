@@ -119,7 +119,9 @@
   INF MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe.inf
   INF MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf
   INF MdeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf
+!if $(SERIAL_SETUP_SUPPORT) == TRUE
   INF MdeModulePkg/Universal/Console/TerminalDxe/TerminalDxe.inf
+!endif
   INF MdeModulePkg/Universal/SerialDxe/SerialDxe.inf
 !if $(TOKEN_CONSOLE_PREF_SUPPORT) == TRUE
   INF EmbeddedPkg/Drivers/ConsolePrefDxe/ConsolePrefDxe.inf

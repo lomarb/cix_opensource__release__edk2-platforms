@@ -1,0 +1,30 @@
+#/** @file
+#  Copyright 2025 Cix Technology Group Co., Ltd. All Rights Reserved.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+#**/
+
+[Defines]
+  INF_VERSION                    = 0x0001001A
+  BASE_NAME                      = StmmInfoNullLib
+  FILE_GUID                      = 2B10054C-D47A-4207-92E2-BC3D1DB10F6D
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = StmmInfoLib
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+
+[Guids]
+
+[Protocols]
+
+[Sources.common]
+  StmmInfoNullLib.c
+
+

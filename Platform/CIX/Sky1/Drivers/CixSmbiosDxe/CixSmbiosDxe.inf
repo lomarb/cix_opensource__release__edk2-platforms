@@ -45,17 +45,9 @@
   UefiDriverEntryPoint
   CpuInfoLib
 
-[Guids]
-
-[FixedPcd]
-  gArmTokenSpaceGuid.PcdSystemMemoryBase
-  gArmTokenSpaceGuid.PcdSystemMemorySize
-
 [Protocols]
   gEfiSmbiosProtocolGuid                      # PROTOCOL ALWAYS_CONSUMED
   gCixSocInfoProtocolGuid
-
-[Guids]
 
 [Depex]
   gEfiSmbiosProtocolGuid AND gCixSocInfoProtocolGuid

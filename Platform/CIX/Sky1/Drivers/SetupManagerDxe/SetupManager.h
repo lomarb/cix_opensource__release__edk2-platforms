@@ -27,6 +27,7 @@
 #include <Library/UefiBootManagerLib.h>
 #include <Library/UefiHiiServicesLib.h>
 #include <SetupManagerFormId.h>
+#include <PlatformSetupVar.h>
 
 //
 // These are the VFR compiler generated data representing our VFR data.
