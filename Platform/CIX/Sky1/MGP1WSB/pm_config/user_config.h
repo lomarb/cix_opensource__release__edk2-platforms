@@ -172,7 +172,7 @@ static pm_config_fan_t fan_config[MAX_FAN_NUM] = {
         .pwm_freq = {
             .fields = {
                 .valid = PM_CONFIG_VALID,
-                .raw_data = 100, // the pwm frequence. depending on the fan's characteristic, 50~1000 is recommended.
+                .raw_data = 5000, // the pwm frequence. depending on the fan's characteristic, 1K~100K is recommended.
             }
         }
     },
@@ -230,7 +230,7 @@ static pm_config_fan_t fan_config[MAX_FAN_NUM] = {
         .pwm_freq = {
             .fields = {
                 .valid = PM_CONFIG_VALID,
-                .raw_data = 100, // the pwm frequence. depending on the fan's characteristic, 50~1000 is recommended.
+                .raw_data = 5000, // the pwm frequence. depending on the fan's characteristic, 1K~100K is recommended.
             }
         }
     },
@@ -288,7 +288,7 @@ static pm_config_fan_t fan_config[MAX_FAN_NUM] = {
         .pwm_freq = {
             .fields = {
                 .valid = PM_CONFIG_VALID,
-                .raw_data = 100, // the pwm frequence. depending on the fan's characteristic, 50~1000 is recommended.
+                .raw_data = 5000, // the pwm frequence. depending on the fan's characteristic, 1K~100K is recommended.
             }
         }
     },
@@ -334,14 +334,14 @@ static pm_config_vmin_t vmin_config = {
 #endif
 
 #ifndef PM_NOC_IDLE_CONFIG
-#define PM_NOC_IDLE_CONFIG 0
+#define PM_NOC_IDLE_CONFIG 1
 #endif
 #if PM_NOC_IDLE_CONFIG
 static pm_config_noc_idle_t noc_idle_config = {
     .noc_idle_enable = {
         .fields = {
             .valid    = PM_CONFIG_VALID,
-            .raw_data = 1,  // BIT0: ddr-dfs/ci/mm dfs; BIT1: dsu dfs
+            .raw_data = 2,  // BIT0: ddr-dfs/ci/mm dfs; BIT1: dsu dfs
         }
     },
     /* default threshold are loaded if not specificed below */
