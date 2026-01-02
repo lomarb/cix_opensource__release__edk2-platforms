@@ -161,7 +161,7 @@ READ_LOCK_STATUS   = TRUE
 !if $(SMBIOS_ENABLE) == TRUE
   INF Platform/MINISFORUM/MGP1WSB/PlatformSmbios/PlatformSmbios.inf
 !endif
-  INF Platform/MINISFORUM/MGP1WSB/Drivers/Logo/LogoDxe.inf
+  INF Platform/MINISFORUM/Drivers/Logo/LogoDxe.inf
   INF Platform/MINISFORUM/MGP1WSB/Drivers/PlatformSetupVariableInitDxe/PlatformSetupVariableInitDxe.inf
   INF Platform/MINISFORUM/MGP1WSB/Drivers/SetupManagerDxe/SetupManagerDxe.inf
 [FV.FVMAIN_COMPACT]

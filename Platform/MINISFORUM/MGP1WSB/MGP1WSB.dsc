@@ -203,7 +203,7 @@
 !if $(SMBIOS_ENABLE) == TRUE
   Platform/MINISFORUM/MGP1WSB/PlatformSmbios/PlatformSmbios.inf
 !endif
-  Platform/MINISFORUM/MGP1WSB/Drivers/Logo/LogoDxe.inf
+  Platform/MINISFORUM/Drivers/Logo/LogoDxe.inf
   Platform/MINISFORUM/MGP1WSB/Drivers/PlatformSetupVariableInitDxe/PlatformSetupVariableInitDxe.inf
   Platform/MINISFORUM/MGP1WSB/Drivers/SetupManagerDxe/SetupManagerDxe.inf
   Silicon/CIX/Sky1/Drivers/GenericWatchdogDxe/GlobalWatchdogDxe.inf
