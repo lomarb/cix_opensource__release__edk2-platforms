@@ -164,6 +164,16 @@ READ_LOCK_STATUS   = TRUE
   INF Platform/MINISFORUM/Drivers/Logo/LogoDxe.inf
   INF Platform/MINISFORUM/MGP1WSB/Drivers/PlatformSetupVariableInitDxe/PlatformSetupVariableInitDxe.inf
   INF Platform/MINISFORUM/MGP1WSB/Drivers/SetupManagerDxe/SetupManagerDxe.inf
+#!if $(X64EMU_ENABLE) == TRUE
+#  INF  MultiArchUefiPkg/Drivers/Emulator/Emulator.inf
+  INF Emulator/X86EmulatorDxe/X86EmulatorDxe.inf
+#!endif
+!if $(AMD_GOP_ENABLE) == TRUE
+  INF Platform/MINISFORUM/Drivers/AMD/Gop/AmdGopOpRomOverrideDxe.inf
+  INF Platform/MINISFORUM/Drivers/AMD/Gop/AmdGopPreSoc15Dxe.inf
+  INF Platform/MINISFORUM/Drivers/AMD/Gop/AmdGopPostSoc15Dxe.inf
+!endif
+
 [FV.FVMAIN_COMPACT]
 FvAlignment        = 16
 ERASE_POLARITY     = 1

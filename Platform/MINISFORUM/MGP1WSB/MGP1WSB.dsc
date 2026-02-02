@@ -48,8 +48,8 @@
   DEFINE WATCH_DOG_ENABLE           = FALSE
   DEFINE NO_GIC_NO_TIMER            = FALSE
   DEFINE SOC_I2C_ENABLE             = TRUE
-  DEFINE I2C_EC_ENABLE              = FALSE
-  DEFINE I2C_HID_ENABLE             = FALSE
+  DEFINE I2C_EC_ENABLE              = TRUE
+  DEFINE I2C_HID_ENABLE             = TRUE
   DEFINE FW_UPDATE_ENABLE           = TRUE
   DEFINE PCIE_HOST_ENABLE           = TRUE
   DEFINE SOC_CDNSP_HOST_ENABLE      = TRUE
@@ -59,6 +59,7 @@
   DEFINE NTFS_DRIVER_SUPPORT        = FALSE
   DEFINE EXT4_DRIVER_SUPPORT        = FALSE
   DEFINE AMD_GOP_DRIVER_SUPPORT     = FALSE
+  DEFINE AMD_GOP_ENABLE             = TRUE
   DEFINE TOKEN_RAM_DISK_SUPPORT     = FALSE
   DEFINE VARIABLE_SUPPORT           = $(COMPILE_VARIABLE_TYPE)
   DEFINE STMM_SUPPORT               = $(COMPILE_STMM_SUPPORT)
@@ -74,7 +75,7 @@
   DEFINE DEFAULT_KEYS               = TRUE
   DEFINE UEFI_FW_STAGE              = Beta2
   DEFINE BOOT_LOGO_ENABLE           = FALSE
-  DEFINE GLOBAL_WATCHDOG_ENABLE     = FALSE
+  DEFINE GLOBAL_WATCHDOG_ENABLE     = TRUE
   DEFINE FUNC_BOOT_PERF_ENABLE      = TRUE
   DEFINE CAPSULE_ENABLE             = TRUE
   DEFINE POWER_BUTTON_ENABLE        = FALSE
@@ -107,7 +108,7 @@
 #
 # Network definition
 #
-  DEFINE NETWORK_ENABLE                 = FALSE
+  DEFINE NETWORK_ENABLE                 = TRUE
 !if $(NETWORK_ENABLE) == TRUE
   DEFINE NETWORK_IP4_ENABLE             = TRUE
   DEFINE NETWORK_SNP_ENABLE             = TRUE
@@ -128,6 +129,7 @@
   DEFINE SPI_VARIABLE_SIZE          = 0x28000
 
   DEFINE LINUX_ACPI_CONFIG_OVERRIDE = TRUE
+  #DEFINE X64EMU_ENABLE				= TRUE
 
 !include Platform/CIX/Sky1/Sky1Common.dsc.inc
 !include NetworkPkg/NetworkDefines.dsc.inc
@@ -207,6 +209,12 @@
   Platform/MINISFORUM/MGP1WSB/Drivers/PlatformSetupVariableInitDxe/PlatformSetupVariableInitDxe.inf
   Platform/MINISFORUM/MGP1WSB/Drivers/SetupManagerDxe/SetupManagerDxe.inf
   Silicon/CIX/Sky1/Drivers/GenericWatchdogDxe/GlobalWatchdogDxe.inf
+
+!if $(AMD_GOP_ENABLE) == TRUE
+  Platform/MINISFORUM/Drivers/AMD/Gop/AmdGopOpRomOverrideDxe.inf
+  Platform/MINISFORUM/Drivers/AMD/Gop/AmdGopPreSoc15Dxe.inf
+  Platform/MINISFORUM/Drivers/AMD/Gop/AmdGopPostSoc15Dxe.inf
+!endif
 ###################################################################################################
 # BuildOptions Section - Define the module specific tool chain flags that should be used as
 #                        the default flags for a module. These flags are appended to any
@@ -319,6 +327,11 @@
   gCixTokenSpaceGuid.PcdPcieRootPort2LaneNum|0x01
   gCixTokenSpaceGuid.PcdPcieRootPort3LaneNum|0x00
   gCixTokenSpaceGuid.PcdPcieRootPort4LaneNum|0x00
+  gCixTokenSpaceGuid.PcdPcieRootPort0AspmSupport|3
+  gCixTokenSpaceGuid.PcdPcieRootPort1AspmSupport|3
+  gCixTokenSpaceGuid.PcdPcieRootPort2AspmSupport|3
+  gCixTokenSpaceGuid.PcdPcieRootPort3AspmSupport|3
+  gCixTokenSpaceGuid.PcdPcieRootPort4AspmSupport|3
   gCixTokenSpaceGuid.PcdPcieRootPort0PeResetPin|2
   gCixTokenSpaceGuid.PcdPcieRootPort1PeResetPin|4
   gCixTokenSpaceGuid.PcdPcieRootPort2PeResetPin|5
@@ -425,6 +438,8 @@
 
   gCixTokenSpaceGuid.PcdCixProcessorVersion|L"CIX P1 CP8180"
 
+  # Default hardware description should be ACPI
+  gEmbeddedTokenSpaceGuid.PcdDefaultDtPref|FALSE
 
 [PcdsDynamicDefault.common]
 
